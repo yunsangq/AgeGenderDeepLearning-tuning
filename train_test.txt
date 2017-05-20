@@ -3,14 +3,14 @@
 
 /home/k/caffe/build/tools/caffe test \
 -model train_val_test_fold_is_0.prototxt \
--weights caffenet_train_iter_50000.caffemodel \
+-weights ./model_fold_0/caffenet_train_iter_50000.caffemodel \
 -gpu 0
 
 
 python ~/caffe/tools/extra/plot_training_log.py.example 0 \
-./visualize/test_acc.png \
-./tmp/loss_history.log
+./model_fold_0/test_acc.png \
+../log/loss_history.log
 
 python ~/caffe/tools/extra/plot_training_log.py.example 2 \
-./visualize/test_loss.png \
-./tmp/loss_history.log
+./model_fold_0/test_loss.png \
+../log/loss_history.log
