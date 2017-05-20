@@ -7,8 +7,8 @@ caffe.set_mode_gpu()
 caffe.set_device(0)
 
 model_file = './deploy.prototxt'
-trained = './model_fold_0/caffenet_train_iter_50000.caffemodel'
-guess = '../example/example_image8.jpg'
+trained = './model_fold_0/caffenet_train_iter_20000.caffemodel'
+guess = '../example/example_image9.jpg'
 
 net = caffe.Net(model_file, trained, caffe.TEST)
 
@@ -32,3 +32,7 @@ net.blobs['data'].data[...] = transformer.preprocess('data', img)
 output = net.forward()
 
 print(AGE_LIST[output['prob'].argmax()])
+
+'''
+TODO face detector add
+'''
