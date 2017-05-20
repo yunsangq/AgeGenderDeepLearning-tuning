@@ -1,5 +1,6 @@
 import caffe
 import numpy as np
+import utils
 
 GENDER_LIST = ['M', 'F']
 
@@ -8,7 +9,9 @@ caffe.set_device(0)
 
 model_file = './deploy.prototxt'
 trained = './model_fold_0/caffenet_train_iter_28000.caffemodel'
-guess = '../example/example_image6.jpg'
+guess = '../example/example_image14.jpg'
+
+face_list = utils.faceDetector(guess, 'face')
 
 net = caffe.Net(model_file, trained, caffe.TEST)
 
@@ -26,13 +29,18 @@ transformer.set_raw_scale('data', 255.0)
 
 net.blobs['data'].reshape(1, 3, 227, 227)
 
-img = caffe.io.load_image(guess)
-net.blobs['data'].data[...] = transformer.preprocess('data', img)
+if len(face_list) > 0:
+    for i in range(len(face_list)):
+        img = caffe.io.load_image(face_list[i])
+        net.blobs['data'].data[...] = transformer.preprocess('data', img)
 
-output = net.forward()
+        output = net.forward()
 
-print(GENDER_LIST[output['prob'].argmax()])
+        print(GENDER_LIST[output['prob'].argmax()])
+else:
+    img = caffe.io.load_image(guess)
+    net.blobs['data'].data[...] = transformer.preprocess('data', img)
 
-'''
-TODO face detector add
-'''
+    output = net.forward()
+
+    print(GENDER_LIST[output['prob'].argmax()])
