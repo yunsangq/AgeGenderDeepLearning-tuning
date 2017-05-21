@@ -22,7 +22,7 @@ layers {
   top: "data"
   top: "label"
   data_param {
-    source:  "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_1/age_val_lmdb"
+    source:  "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_1/age_test_lmdb"
     backend: LMDB
     batch_size: 50
   }

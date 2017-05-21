@@ -8,12 +8,10 @@ caffe.set_mode_gpu()
 caffe.set_device(0)
 
 model_file = './deploy.prototxt'
-trained = './model_fold_0/caffenet_train_iter_28000.caffemodel'
-guess = '../example/example_image14.jpg'
+trained = './model_fold_0/caffenet_train_iter_50000.caffemodel'
+guess = '../example/example_image16.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
-
-net = caffe.Net(model_file, trained, caffe.TEST)
 
 blob = caffe.proto.caffe_pb2.BlobProto()
 data = open('../Folds/lmdb/Test_fold_is_0/mean.binaryproto', 'rb').read()
@@ -21,26 +19,24 @@ blob.ParseFromString(data)
 arr = np.array(caffe.io.blobproto_to_array(blob))
 np.save('./model_fold_0/mean.npy', arr[0])
 
-transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
-transformer.set_mean('data', np.load('./model_fold_0/mean.npy').mean(1).mean(1))
-transformer.set_transpose('data', (2, 0, 1))
-transformer.set_channel_swap('data', (2, 1, 0)) # if using RGB instead of BGR
-transformer.set_raw_scale('data', 255.0)
-
-net.blobs['data'].reshape(1, 3, 227, 227)
+net = caffe.Classifier(model_file, trained,
+                       mean=np.load('./model_fold_0/mean.npy').mean(1).mean(1),
+                       channel_swap=(2, 1, 0),
+                       raw_scale=255,
+                       image_dims=(227, 227))
 
 if len(face_list) > 0:
     for i in range(len(face_list)):
         img = caffe.io.load_image(face_list[i])
-        net.blobs['data'].data[...] = transformer.preprocess('data', img)
+        #plt.imshow(img)
+        #plt.show()
 
-        output = net.forward()
-
-        print(GENDER_LIST[output['prob'].argmax()])
+        prediction = net.predict([img])
+        print('prediction@1: ' + GENDER_LIST[prediction[0].argmax()])
 else:
     img = caffe.io.load_image(guess)
-    net.blobs['data'].data[...] = transformer.preprocess('data', img)
+    #plt.imshow(img)
+    #plt.show()
 
-    output = net.forward()
-
-    print(GENDER_LIST[output['prob'].argmax()])
+    prediction = net.predict([img])
+    print('prediction@1: ' + GENDER_LIST[prediction[0].argmax()])
