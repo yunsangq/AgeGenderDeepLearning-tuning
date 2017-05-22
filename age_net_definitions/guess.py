@@ -2,6 +2,7 @@ import caffe
 import numpy as np
 import utils
 import matplotlib.pyplot as plt
+import cv2
 
 AGE_LIST = ['(0, 2)', '(4, 6)', '(8, 12)', '(15, 20)', '(25, 32)', '(38, 43)', '(48, 53)', '(60, 100)']
 
@@ -26,22 +27,36 @@ net = caffe.Classifier(model_file, trained,
                        raw_scale=255,
                        image_dims=(227, 227))
 
+oversample = True
+
 if len(face_list) > 0:
     for i in range(len(face_list)):
         img = caffe.io.load_image(face_list[i])
         #plt.imshow(img)
         #plt.show()
 
-        prediction = net.predict([img])
-        argsort = prediction[0].argsort()
-        print('prediction@1: ' + AGE_LIST[argsort[-1]])
-        print('prediction@2: ' + AGE_LIST[argsort[-2]])
+        if oversample:
+            prediction = net.predict([img], oversample=True)
+            argsort = prediction[0].argsort()
+            print('prediction@1: ' + AGE_LIST[argsort[-1]])
+            print('prediction@2: ' + AGE_LIST[argsort[-2]])
+        else:
+            prediction = net.predict([img], oversample=False)
+            argsort = prediction[0].argsort()
+            print('prediction@1: ' + AGE_LIST[argsort[-1]])
+            print('prediction@2: ' + AGE_LIST[argsort[-2]])
 else:
     img = caffe.io.load_image(guess)
     #plt.imshow(img)
     #plt.show()
 
-    prediction = net.predict([img])
-    argsort = prediction[0].argsort()
-    print('prediction@1: ' + AGE_LIST[argsort[-1]])
-    print('prediction@2: ' + AGE_LIST[argsort[-2]])
+    if oversample:
+        prediction = net.predict([img], oversample=True)
+        argsort = prediction[0].argsort()
+        print('prediction@1: ' + AGE_LIST[argsort[-1]])
+        print('prediction@2: ' + AGE_LIST[argsort[-2]])
+    else:
+        prediction = net.predict([img], oversample=False)
+        argsort = prediction[0].argsort()
+        print('prediction@1: ' + AGE_LIST[argsort[-1]])
+        print('prediction@2: ' + AGE_LIST[argsort[-2]])
