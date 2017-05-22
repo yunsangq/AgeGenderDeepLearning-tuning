@@ -1,19 +1,19 @@
 /home/k/caffe/build/tools/caffe train \
--solver solver_test_fold_is_3.prototxt 2>&1 | tee ../log/loss_history.log
+-solver solver_test_fold_is_4.prototxt 2>&1 | tee ../log/loss_history.log
 
 /home/k/caffe/build/tools/caffe test \
--model train_val_test_fold_is_3.prototxt \
--weights ./model_fold_3/caffenet_train_iter_50000.caffemodel \
+-model train_val_test_fold_is_4.prototxt \
+-weights ./model_fold_4/caffenet_train_iter_50000.caffemodel \
 -gpu 0
 
 python ~/caffe/tools/extra/plot_training_log.py.example 0 \
-./model_fold_3/test_acc.png \
+./model_fold_4/test_acc.png \
 ../log/loss_history.log
 
 python ~/caffe/tools/extra/plot_training_log.py.example 2 \
-./model_fold_3/test_loss.png \
+./model_fold_4/test_loss.png \
 ../log/loss_history.log
 
 python ~/caffe/tools/extra/plot_training_log.py.example 6 \
-./model_fold_3/train_loss.png \
+./model_fold_4/train_loss.png \
 ../log/loss_history.log

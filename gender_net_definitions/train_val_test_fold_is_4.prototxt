@@ -22,13 +22,13 @@ layers {
   top: "data"
   top: "label"
   data_param {
-    source:  "/home/ubuntu/AdienceFaces/lmdb/Test_fold_is_4/gender_val_lmdb"
+    source:  "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_4/gender_test_lmdb"
     backend: LMDB
     batch_size: 50
   }
   transform_param {
     crop_size: 227
-    mean_file: "/home/ubuntu/AdienceFaces/mean_image/Test_folder_is_4/mean.binaryproto"
+    mean_file: "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_4/mean.binaryproto"
     mirror: false
   }
   include: { phase: TEST }
