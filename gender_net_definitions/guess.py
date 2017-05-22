@@ -9,7 +9,7 @@ caffe.set_device(0)
 
 model_file = './deploy.prototxt'
 trained = './model_fold_0/caffenet_train_iter_50000.caffemodel'
-guess = '../example/example_image16.jpg'
+guess = '../example/example_image0.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
 
