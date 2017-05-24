@@ -2317,3 +2317,4 @@ layer {
 	name: "prob"
 	type: "Softmax"
 }
+
