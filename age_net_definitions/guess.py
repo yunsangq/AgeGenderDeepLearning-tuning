@@ -9,10 +9,35 @@ AGE_LIST = ['(0, 2)', '(4, 6)', '(8, 12)', '(15, 20)', '(25, 32)', '(38, 43)', '
 caffe.set_mode_gpu()
 caffe.set_device(0)
 
-fold_number = 4
+
+def showimage(im):
+    if im.ndim == 3:
+        im = im[:, :, ::-1]
+    plt.set_cmap('jet')
+    plt.imshow(im)
+    plt.show()
+
+
+def vis_square(data, padsize=1, padval=0):
+    data -= data.min()
+    data /= data.max()
+
+    # force the number of filters to be square
+    n = int(np.ceil(np.sqrt(data.shape[0])))
+    padding = ((0, n ** 2 - data.shape[0]), (0, padsize), (0, padsize)) + ((0, 0),) * (data.ndim - 3)
+    data = np.pad(data, padding, mode='constant', constant_values=(padval, padval))
+
+    # tile the filters into an image
+    data = data.reshape((n, n) + data.shape[1:]).transpose((0, 2, 1, 3) + tuple(range(4, data.ndim + 1)))
+    data = data.reshape((n * data.shape[1], n * data.shape[3]) + data.shape[4:])
+
+    showimage(data)
+
+
+fold_number = 0
 model_file = './deploy.prototxt'
 trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
-guess = '../example/example_image0.jpg'
+guess = '../example/example_image.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
 
@@ -46,6 +71,12 @@ if len(face_list) > 0:
             argsort = prediction[0].argsort()
             print('prediction@1: ' + AGE_LIST[argsort[-1]])
             print('prediction@2: ' + AGE_LIST[argsort[-2]])
+        '''
+        filters = net.params['conv1'][0].data[:49]
+        vis_square(filters.transpose(0, 2, 3, 1))
+        feat = net.blobs['conv1'].data[0, :49]
+        vis_square(feat, padval=1)
+        '''
 else:
     img = caffe.io.load_image(guess)
     #plt.imshow(img)
@@ -61,3 +92,10 @@ else:
         argsort = prediction[0].argsort()
         print('prediction@1: ' + AGE_LIST[argsort[-1]])
         print('prediction@2: ' + AGE_LIST[argsort[-2]])
+    '''
+    filters = net.params['conv1'][0].data[:49]
+    vis_square(filters.transpose(0, 2, 3, 1))
+    feat = net.blobs['conv1'].data[0, :49]
+    vis_square(feat, padval=1)
+    '''
+
