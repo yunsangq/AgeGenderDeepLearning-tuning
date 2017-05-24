@@ -37,7 +37,7 @@ def vis_square(data, padsize=1, padval=0):
 fold_number = 0
 model_file = './deploy.prototxt'
 trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
-guess = '../example/example_image.jpg'
+guess = '../example/example_image0.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
 
@@ -71,12 +71,12 @@ if len(face_list) > 0:
             argsort = prediction[0].argsort()
             print('prediction@1: ' + AGE_LIST[argsort[-1]])
             print('prediction@2: ' + AGE_LIST[argsort[-2]])
-        '''
+
         filters = net.params['conv1'][0].data[:49]
         vis_square(filters.transpose(0, 2, 3, 1))
         feat = net.blobs['conv1'].data[0, :49]
         vis_square(feat, padval=1)
-        '''
+
 else:
     img = caffe.io.load_image(guess)
     #plt.imshow(img)
@@ -92,10 +92,10 @@ else:
         argsort = prediction[0].argsort()
         print('prediction@1: ' + AGE_LIST[argsort[-1]])
         print('prediction@2: ' + AGE_LIST[argsort[-2]])
-    '''
+
     filters = net.params['conv1'][0].data[:49]
     vis_square(filters.transpose(0, 2, 3, 1))
     feat = net.blobs['conv1'].data[0, :49]
     vis_square(feat, padval=1)
-    '''
+
 

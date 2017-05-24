@@ -1,0 +1,12 @@
+net: "18_train_val_test_fold_is_0.prototxt"
+base_lr: 0.05
+display: 20
+lr_policy: "poly"
+max_iter: 50000
+power: 1
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 1000
+snapshot_prefix: "resnet-imagenet"
+random_seed: 0
+solver_mode: GPU
