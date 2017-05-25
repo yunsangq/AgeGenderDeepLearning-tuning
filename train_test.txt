@@ -1,15 +1,83 @@
 /home/k/caffe/build/tools/caffe train \
 -solver 18_solver_test_fold_is_0.prototxt 2>&1 | tee ../log/loss_history.log
 
+/home/k/caffe/build/tools/caffe train \
+-solver 18_solver_test_fold_is_0.prototxt \
+-snapshot pre-resnet-18_iter_50000.solverstate 2>&1 | tee ../log/loss_history.log
+
+## age_net
+
 /home/k/caffe/build/tools/caffe test \
 -model train_val_test_fold_is_0.prototxt \
 -weights ./model_fold_0/caffenet_train_iter_50000.caffemodel \
+-iterations 4316 \
 -gpu 0
 
 /home/k/caffe/build/tools/caffe test \
--model 18_train_val_test_fold_is_0.prototxt \
--weights ./model_fold_0/resnet-imagenet_iter_50000.caffemodel \
+-model train_val_test_fold_is_1.prototxt \
+-weights ./model_fold_1/caffenet_train_iter_50000.caffemodel \
+-iterations 3101 \
 -gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_2.prototxt \
+-weights ./model_fold_2/caffenet_train_iter_50000.caffemodel \
+-iterations 3339 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_3.prototxt \
+-weights ./model_fold_3/caffenet_train_iter_50000.caffemodel \
+-iterations 2975 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_4.prototxt \
+-weights ./model_fold_4/caffenet_train_iter_50000.caffemodel \
+-iterations 3693 \
+-gpu 0
+
+## gender_net
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_0.prototxt \
+-weights ./model_fold_0/caffenet_train_iter_50000.caffemodel \
+-iterations 4007 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_1.prototxt \
+-weights ./model_fold_1/caffenet_train_iter_50000.caffemodel \
+-iterations 3624 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_2.prototxt \
+-weights ./model_fold_2/caffenet_train_iter_50000.caffemodel \
+-iterations 3191 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_3.prototxt \
+-weights ./model_fold_3/caffenet_train_iter_50000.caffemodel \
+-iterations 3318 \
+-gpu 0
+
+/home/k/caffe/build/tools/caffe test \
+-model train_val_test_fold_is_4.prototxt \
+-weights ./model_fold_4/caffenet_train_iter_50000.caffemodel \
+-iterations 3463 \
+-gpu 0
+
+## age_resnet
+
+/home/k/caffe/build/tools/caffe test \
+-model 18_train_val_test_fold_is_0.prototxt \
+-weights ./pre-resnet-18_iter_50000.caffemodel \
+-iterations 4316 \
+-gpu 0
+
+
 
 python ~/caffe/tools/extra/plot_training_log.py.example 0 \
 ./model_fold_0/test_acc.png \

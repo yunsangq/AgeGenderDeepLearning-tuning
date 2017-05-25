@@ -24,7 +24,7 @@ layers {
   data_param {
     source:  "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_4/age_test_lmdb"
     backend: LMDB
-    batch_size: 50
+    batch_size: 1
   }
   transform_param {
     crop_size: 227
