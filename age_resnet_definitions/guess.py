@@ -35,11 +35,9 @@ def vis_square(data, padsize=1, padval=0):
 
 
 fold_number = 0
-model_file = './deploy.prototxt'
-trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
-#model_file = './deploy_age.prototxt'
-#trained = './age_net.caffemodel'
-guess = '../example/example_image14.jpg'
+model_file = './resnet-18-deploy.prototxt'
+trained = './model_fold_'+str(fold_number)+'/resnet-imagenet_iter_50000.caffemodel'
+guess = '../example/example_image5.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
 
@@ -54,19 +52,7 @@ net = caffe.Classifier(model_file, trained,
                        channel_swap=(2, 1, 0),
                        raw_scale=255,
                        image_dims=(227, 227))
-'''
-blob = caffe.proto.caffe_pb2.BlobProto()
-data = open('./mean.binaryproto', 'rb').read()
-blob.ParseFromString(data)
-arr = np.array(caffe.io.blobproto_to_array(blob))
-np.save('./mean.npy', arr[0])
 
-net = caffe.Classifier(model_file, trained,
-                       mean=np.load('./mean.npy').mean(1).mean(1),
-                       channel_swap=(2, 1, 0),
-                       raw_scale=255,
-                       image_dims=(227, 227))
-'''
 oversample = True
 
 if len(face_list) > 0:

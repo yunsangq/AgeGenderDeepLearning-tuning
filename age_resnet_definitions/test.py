@@ -9,9 +9,9 @@ GENDER_LIST = ['M', 'F']
 caffe.set_mode_gpu()
 caffe.set_device(0)
 
-fold_number = 4
-model_file = './deploy.prototxt'
-trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
+fold_number = 0
+model_file = './resnet-18-deploy.prototxt'
+trained = './model_fold_'+str(fold_number)+'/resnet-imagenet_iter_50000.caffemodel'
 txt_file = '../Folds/train_val_txt_files_per_fold/test_fold_is_'+str(fold_number)+'/age_test.txt'
 aligned = '../../models/age-gender/aligned/'
 
@@ -28,14 +28,12 @@ data = open('../Folds/lmdb/Test_fold_is_'+str(fold_number)+'/mean.binaryproto', 
 blob.ParseFromString(data)
 arr = np.array(caffe.io.blobproto_to_array(blob))
 np.save('./model_fold_'+str(fold_number)+'/mean.npy', arr[0])
-'''
+
 net = caffe.Classifier(model_file, trained,
                        mean=np.load('./model_fold_'+str(fold_number)+'/mean.npy').mean(1).mean(1),
                        channel_swap=(2, 1, 0),
                        raw_scale=255,
                        image_dims=(227, 227))
-'''
-net = caffe.Net(model_file, trained, caffe.TEST)
 
 if __name__ == "__main__":
     count = 0.
@@ -49,9 +47,8 @@ if __name__ == "__main__":
         # plt.imshow(image)
         # plt.show()
         label = label_list[idx]
-        #prediction = net.predict([image])
-        #plabel = prediction[0].argmax()
-
+        prediction = net.predict([image])
+        plabel = prediction[0].argmax()
 
         count = count + 1
         iscorrect = label == plabel
