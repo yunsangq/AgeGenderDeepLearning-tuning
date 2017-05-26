@@ -82,7 +82,7 @@
 
 /home/k/caffe/build/tools/caffe test \
 -model 18_train_val_test_fold_is_0.prototxt \
--weights ./model_fold_0/pre-resnet-18_iter_50000.caffemodel \
+-weights ./18-model_fold_0/pre-resnet-18_iter_50000.caffemodel \
 -iterations 4316 \
 -gpu 0
 
