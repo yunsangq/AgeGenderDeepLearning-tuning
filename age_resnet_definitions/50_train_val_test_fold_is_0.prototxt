@@ -7,7 +7,7 @@ layer {
   data_param {
     source: "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_0/age_train_lmdb"
     backend: LMDB
-    batch_size: 50
+    batch_size: 20
   }
   transform_param {
     crop_size: 224
@@ -24,7 +24,7 @@ layer {
   data_param {
     source:  "/home/k/PycharmProjects/AgeGenderDeepLearning-master/Folds/lmdb/Test_fold_is_0/age_val_lmdb"
     backend: LMDB
-    batch_size: 50
+    batch_size: 5
   }
   transform_param {
     crop_size: 224

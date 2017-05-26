@@ -4,12 +4,10 @@ import numpy as np
 import lmdb
 from collections import defaultdict
 
-GENDER_LIST = ['M', 'F']
-
 caffe.set_mode_gpu()
 caffe.set_device(0)
 
-fold_number = 0
+fold_number = 4
 model_file = './deploy.prototxt'
 trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
 txt_file = '../Folds/train_val_txt_files_per_fold/test_fold_is_'+str(fold_number)+'/age_test.txt'
@@ -61,7 +59,7 @@ if __name__ == "__main__":
         matrix[(label, plabel)] += 1
         labels_set.update([label, plabel])
 
-        if count % 100 == 0:
+        if count % 10 == 0:
             print('Exact -> %i/%i, acc: %f' % (correct, count, correct/count))
             print('1-off -> %i/%i, acc: %f' % (one_off, count, one_off/count))
 

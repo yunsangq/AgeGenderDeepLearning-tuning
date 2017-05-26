@@ -39,7 +39,7 @@ model_file = './deploy.prototxt'
 trained = './model_fold_'+str(fold_number)+'/caffenet_train_iter_50000.caffemodel'
 #model_file = './deploy_age.prototxt'
 #trained = './age_net.caffemodel'
-guess = '../example/example_image14.jpg'
+guess = '../example/example_image1.jpg'
 
 face_list = utils.faceDetector(guess, 'face')
 
