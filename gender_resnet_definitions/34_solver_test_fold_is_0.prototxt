@@ -1,0 +1,14 @@
+net: "34_train_val_test_fold_is_0.prototxt"
+test_iter: 1284
+test_interval: 1000
+base_lr: 0.01
+display: 100
+lr_policy: "poly"
+max_iter: 70000
+power: 1
+momentum: 0.9
+weight_decay: 0.0001
+snapshot: 1000
+snapshot_prefix: "pre-resnet-34"
+random_seed: 0
+solver_mode: GPU

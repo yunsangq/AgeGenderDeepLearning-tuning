@@ -1,5 +1,5 @@
 /home/k/caffe/build/tools/caffe train \
--solver 50_solver_test_fold_is_0.prototxt 2>&1 | tee ../log/loss_history.log
+-solver 18_solver_test_fold_is_0.prototxt 2>&1 | tee ../log/loss_history.log
 
 /home/k/caffe/build/tools/caffe train \
 -solver 18_solver_test_fold_is_0.prototxt \
