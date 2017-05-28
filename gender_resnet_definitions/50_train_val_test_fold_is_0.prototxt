@@ -3349,7 +3349,7 @@ layer {
     decay_mult: 1.0
   }
   inner_product_param {
-    num_output: 8
+    num_output: 2
   }
 }
 layer {
