@@ -80,7 +80,7 @@ def total_err_disp(valid_iter, valid):
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.savefig('./cost.png')
+    plt.savefig('./total_cost.png')
     #plt.show()
 
 
@@ -96,11 +96,14 @@ def total_acc_disp(valid_iter, valid):
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.savefig('./acc.png')
+    plt.savefig('./total_acc.png')
     #plt.show()
 
-
+#total_val_loss[0][0] = 10.
+#total_val_loss[1][0] = 10.
+#total_val_loss[2][0] = 10.
 total_err_disp(val_iter, total_val_loss)
-#total_acc_disp(val_iter, total_val_acc)
-#err_disp(train_iter[2], val_iter[2], total_train_loss[2], total_val_loss[2])
-# acc_disp(val_iter[1], total_val_acc[1])
+total_acc_disp(val_iter, total_val_acc)
+number = 1
+err_disp(train_iter[number], val_iter[number], total_train_loss[number], total_val_loss[number])
+acc_disp(val_iter[number], total_val_acc[number])

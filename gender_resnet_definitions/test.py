@@ -10,8 +10,8 @@ caffe.set_mode_gpu()
 caffe.set_device(0)
 
 fold_number = 0
-model_file = './50-model_fold_0/deploy.prototxt'
-trained = './50-model_fold_'+str(fold_number)+'/pre-resnet-50_iter_200000.caffemodel'
+model_file = './34-model_fold_0/deploy.prototxt'
+trained = './pre-resnet-34_iter_81000.caffemodel'
 txt_file = '../Folds/train_val_txt_files_per_fold/test_fold_is_'+str(fold_number)+'/gender_test.txt'
 aligned = '../../models/age-gender/aligned/'
 
@@ -27,10 +27,10 @@ blob = caffe.proto.caffe_pb2.BlobProto()
 data = open('../Folds/lmdb/Test_fold_is_'+str(fold_number)+'/mean.binaryproto', 'rb').read()
 blob.ParseFromString(data)
 arr = np.array(caffe.io.blobproto_to_array(blob))
-np.save('./50-model_fold_'+str(fold_number)+'/mean.npy', arr[0])
+np.save('./34-model_fold_'+str(fold_number)+'/mean.npy', arr[0])
 
 net = caffe.Classifier(model_file, trained,
-                       mean=np.load('./50-model_fold_'+str(fold_number)+'/mean.npy').mean(1).mean(1),
+                       mean=np.load('./34-model_fold_'+str(fold_number)+'/mean.npy').mean(1).mean(1),
                        channel_swap=(2, 1, 0),
                        raw_scale=255,
                        image_dims=(224, 224))

@@ -99,8 +99,11 @@ def total_acc_disp(valid_iter, valid):
     plt.savefig('./total_acc.png')
     #plt.show()
 
-
-#total_err_disp(val_iter, total_val_loss)
-#total_acc_disp(val_iter, total_val_acc)
-#err_disp(train_iter[2], val_iter[2], total_train_loss[2], total_val_loss[2])
-#acc_disp(val_iter[2], total_val_acc[2])
+#total_val_loss[0][0] = 10.
+#total_val_loss[1][0] = 10.
+#total_val_loss[2][0] = 10.
+total_err_disp(val_iter, total_val_loss)
+total_acc_disp(val_iter, total_val_acc)
+number = 1
+err_disp(train_iter[number], val_iter[number], total_train_loss[number], total_val_loss[number])
+acc_disp(val_iter[number], total_val_acc[number])
