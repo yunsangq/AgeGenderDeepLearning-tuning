@@ -101,13 +101,13 @@
 
 
 python ~/caffe/tools/extra/plot_training_log.py.example 0 \
-./34-model_fold_0/test_acc.png \
+./50-model_fold_0/test_acc.png \
 ../log/loss_history.log
 
 python ~/caffe/tools/extra/plot_training_log.py.example 2 \
-./34-model_fold_0/test_loss.png \
+./50-model_fold_0/test_loss.png \
 ../log/loss_history.log
 
 python ~/caffe/tools/extra/plot_training_log.py.example 6 \
-./34-model_fold_0/train_loss.png \
+./50-model_fold_0/train_loss.png \
 ../log/loss_history.log
